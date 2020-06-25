@@ -450,6 +450,15 @@ exports.createPages = async function ({ actions, graphql }) {
         context: { generatedId },
       })
     })
+
+    data[`all${formatYamlName(resource)}Yaml`].nodes.forEach((node) => {
+      const generatedId = node.generatedId
+      actions.createPage({
+        path: `/${resource}-again/${generatedId}/`,
+        component: require.resolve(`./src/templates/${resource}.js`),
+        context: { generatedId },
+      })
+    })
   })
 
   data.allBooksYaml.nodes.forEach((node) => {
